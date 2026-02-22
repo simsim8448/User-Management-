@@ -1,2 +1,2 @@
 # 1st-Portfolio
-This is my first portfoliio
+This is my first portfolio.
