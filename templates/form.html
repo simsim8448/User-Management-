@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3 class="mb-3">ثبت / ویرایش کارمند</h3>
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+<!-- خطاها -->
+{{ emp_form.errors }}
+{{ edu_form.errors }}
+{{ veh_form.errors }}
+
+<div class="card mb-3">
+<div class="card-header">اطلاعات کارمند</div>
+<div class="card-body">
+{{ emp_form.as_p }}
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header">اطلاعات تحصیلی</div>
+<div class="card-body">
+{{ edu_form.as_p }}
+</div>
+</div>
+
+<div class="card mb-3">
+<div class="card-header">اطلاعات خودرو</div>
+<div class="card-body">
+{{ veh_form.as_p }}
+</div>
+</div>
+
+<button class="btn btn-success">ثبت</button>
+</form>
+
+{% endblock %}

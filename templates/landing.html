@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ورود به سیستم</title>
+    <style>
+        body {
+            font-family: Estedad, sans-serif;
+            background: #f8f9fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0 0 15px rgba(0,0,0,.1);
+        }
+        a {
+            display: block;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+        }
+        .login { background: #4e73df; }
+        .signup { background: #1cc88a; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>خوش آمدید 👋</h2>
+    <p>برای ادامه وارد شوید یا ثبت‌نام کنید</p>
+
+    <a href="{% url 'login' %}" class="login">ورود</a>
+    <a href="{% url 'signup' %}" class="signup">ثبت‌نام</a>
+</div>
+
+</body>
+</html>

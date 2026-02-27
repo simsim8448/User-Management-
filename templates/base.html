@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+<meta charset="utf-8">
+<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSS -->
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+<!-- RTL FIX -->
+<style>
+body,
+h1, h2, h3, h4, h5, h6,
+p, span, a,
+input, button, label, textarea, select,
+table, th, td {
+font-family: 'Estedad', sans-serif !important;
+direction: rtl;
+text-align: right;
+}
+
+body {
+overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+position: fixed;
+top: 0;
+right: 0;
+left: auto;
+width: 14rem;
+height: 100vh;
+z-index: 1030;
+}
+
+/* Content */
+#content-wrapper {
+margin-right: 14rem;
+margin-left: 0;
+width: calc(100% - 14rem);
+min-height: 100vh;
+}
+
+.sidebar .nav-item .nav-link {
+text-align: right;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+.sidebar {
+right: -14rem;
+}
+
+#content-wrapper {
+margin-right: 0;
+width: 100%;
+}
+}
+</style>
+</head>
+
+<body id="page-top">
+
+<div id="wrapper">
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
+<div class="sidebar-brand-text mx-3">داشبورد</div>
+</a>
+
+<hr class="sidebar-divider my-0">
+
+<li class="nav-item">
+<a class="nav-link" href="{% url 'home' %}">
+<i class="fas fa-home"></i>
+<span>صفحه اصلی</span>
+</a>
+</li>
+
+<li class="nav-item">
+<a class="nav-link" href="{% url 'add' %}">
+<i class="fas fa-user-plus"></i>
+<span>افزودن کارمند</span>
+</a>
+</li>
+
+<hr class="sidebar-divider">
+</ul>
+<!-- End Sidebar -->
+
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+<!-- Main Content -->
+<div id="content">
+
+<!-- Topbar -->
+<nav class="navbar navbar-light bg-white shadow mb-4 d-flex justify-content-between px-4">
+<span class="font-weight-bold">
+سیستم مدیریت کارمندان
+</span>
+
+{% if user.is_authenticated %}
+<form method="post" action="{% url 'logout' %}">
+{% csrf_token %}
+<button type="submit" class="btn btn-outline-danger btn-sm">
+خروج
+</button>
+</form>
+{% endif %}
+</nav>
+
+<!-- Messages -->
+<div class="container-fluid">
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-success alert-dismissible fade show">
+{{ message }}
+<button type="button" class="close" data-dismiss="alert">
+<span>&times;</span>
+</button>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+
+<!-- Page Content -->
+<div class="container-fluid">
+{% block content %}{% endblock %}
+</div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer bg-white text-center py-3">
+© 2026
+</footer>
+
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+
+</body>
+</html>

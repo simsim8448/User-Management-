@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- کارت‌های آماری -->
+<div class="row mb-4">
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-right-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-primary mb-1">
+                    کل کارمندان
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    {{ total_employees }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-right-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-success mb-1">
+                    فعال
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    {{ active_employees }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-md-6 mb-4">
+        <div class="card border-right-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="text-xs font-weight-bold text-danger mb-1">
+                    غیرفعال
+                </div>
+                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                    {{ inactive_employees }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- افزودن کارمند -->
+<a href="{% url 'add' %}" class="btn btn-primary mb-4">
+    ➕ افزودن کارمند
+</a>
+
+<!-- جدول کارمندان -->
+<table class="table table-bordered text-center">
+    <thead class="bg-light">
+        <tr>
+            <th>ردیف</th>
+            <th>عکس</th>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>کد ملی</th>
+            <th>تحصیلات</th>
+            <th>پلاک خودرو</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+
+            <td>
+                {% if emp.photo %}
+                    <img src="{{ emp.photo.url }}" width="50">
+                {% else %}
+                    ---
+                {% endif %}
+            </td>
+
+            <td>{{ emp.first_name }}</td>
+            <td>{{ emp.last_name }}</td>
+            <td>{{ emp.national_code }}</td>
+
+            <!-- تحصیلات -->
+            <td>
+                {% if emp.educations.exists %}
+                    {% for edu in emp.educations.all %}
+                        {{ edu.degree }} - {{ edu.university }}<br>
+                    {% endfor %}
+                {% else %}
+                    ---
+                {% endif %}
+            </td>
+
+            <!-- پلاک خودرو -->
+            <td>
+                {% if emp.vehicles.exists %}
+                    {% for v in emp.vehicles.all %}
+                        {{ v.plate_number }}<br>
+                    {% endfor %}
+                {% else %}
+                    ---
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{% url 'edit' emp.id %}" class="btn btn-warning btn-sm">
+                    ویرایش
+                </a>
+
+                <a href="{% url 'delete' emp.id %}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('حذف شود؟')">
+                    حذف
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
